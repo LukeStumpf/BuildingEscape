@@ -8,7 +8,7 @@ Movement - WASD for movement
 Grab and release items - right click
 
 How to Play:
-Unzip and open the folder "WindowsNoEditor". In the folder, open BuildingEscape.exe to play. 
+Open the project in .uproject file in Unreal and press play to play in editor (having issues with packaging, still working on getting a .exe working)
 Your goal is to escape the dungeon. Use the tools in the room to escape.
 
 Feel free to open the project files and source code to see how it all works :)
