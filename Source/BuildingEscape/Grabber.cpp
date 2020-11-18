@@ -51,10 +51,11 @@ void UGrabber::Grab()
 {
 	FHitResult HitResult = GetFirstPhysicsBodyInReach();
 	UPrimitiveComponent* ComponentToGrab = HitResult.GetComponent();
+	AActor* ActorHit = HitResult.GetActor();
 
 	// If we hit something then attach the physics handle.
-	if (HitResult.GetActor())
-	{
+	if (ActorHit)
+	{	if (!PhysicsHandle){return;}
 		PhysicsHandle->GrabComponentAtLocation
 			(
 				ComponentToGrab,
@@ -66,7 +67,7 @@ void UGrabber::Grab()
 
 void UGrabber::Release()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Grabber Released"));
+	if (!PhysicsHandle) {return;}
 	PhysicsHandle->ReleaseComponent();
 }
 
@@ -75,6 +76,7 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
+	if (!PhysicsHandle) {return;}
 	// If the physics handle is attach.
 	if (PhysicsHandle->GrabbedComponent)
 	{
@@ -95,7 +97,6 @@ FHitResult UGrabber::GetFirstPhysicsBodyInReach() const
 		FCollisionObjectQueryParams(ECollisionChannel::ECC_PhysicsBody),
 		TraceParams
 	);
-
 	return Hit;
 }
 
